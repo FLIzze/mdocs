@@ -1,17 +1,22 @@
 <script>
 	export let data;
+	console.log(data);
 </script>
 
 <div class="container">
 	<aside class="sidebar">
 		{#each data.sections as section}
-			<pre>{section.title}</pre>
+			<pre>
+				<a href="#{section.id}" class="link">
+					{section.title}
+				</a>
+			</pre>
 		{/each}
 	</aside>
 
 	<main class="main">
 		{#each data.sections as section}
-			<h2>{section.title}</h2>
+			<h2 class="title" id={section.id}>{section.title}</h2>
 			<pre>{section.content}</pre>
 		{/each}
 	</main>
@@ -41,5 +46,14 @@
 	.main {
 		overflow-x: hidden;
 		padding: 1rem;
+	}
+
+	.title {
+		padding-bottom: 20px;
+		padding-top: 20px;
+	}
+
+	.link {
+		text-decoration: none;
 	}
 </style>

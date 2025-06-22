@@ -9,6 +9,7 @@ export async function load() {
         const values: MdFormat[] = [];
         let content = "";
         let isCurrent = false;
+        let id = 0;
         let level = "";
 
         const lines = readline.createInterface({
@@ -29,7 +30,7 @@ export async function load() {
                         level = line;
                 } else {
                         if (line === "") continue;
-                        content += line;
+                        content += line + "\n";
                 }
         }
         addToValues();
@@ -38,7 +39,9 @@ export async function load() {
                 const header = level.substring(0, level.indexOf(" "));
                 let title = level.substring(level.indexOf(" ") + 1);
                 title = paddingLeft(title, header.length);
-                values.push({level: header.length, title, content});
+                const strId = id.toString();
+                values.push({level: header.length, title, content, id: strId});
+                id++;
         }
 
         function paddingLeft(text: string, level: number): string {
