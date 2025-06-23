@@ -29,7 +29,6 @@ export async function load() {
                         content = "";
                         level = line;
                 } else {
-                        if (line === "") continue;
                         content += line + "\n";
                 }
         }
