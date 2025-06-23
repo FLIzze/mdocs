@@ -1,23 +1,37 @@
-<script>
+<script lang="ts">
+	import { marked } from 'marked';
+
+	interface mdContent {
+		content: string;
+		title: string;
+	}
+
 	export let data;
-	console.log(data);
+	const mdContent: mdContent[] = [];
+
+	data.sections.forEach((section) => {
+		mdContent.push({
+			content: section.content,
+			title: section.title
+		});
+	});
 </script>
 
 <div class="container">
 	<aside class="sidebar">
 		{#each data.sections as section}
-			<pre>
-				<a href="#{section.id}" class="link">
-					{section.title}
-				</a>
-			</pre>
+			<pre class="link">
+                                <a href="#{section.title.trim()}" class="link">
+                                    {section.title}
+                                </a>
+                        </pre>
 		{/each}
 	</aside>
 
 	<main class="main">
-		{#each data.sections as section}
-			<h2 class="title" id={section.id}>{section.title}</h2>
-			<pre>{section.content}</pre>
+		{#each mdContent as md}
+			<div class="title" id={md.title.trim()}>{md.title}</div>
+			<div class="content">{@html marked(md.content)}</div>
 		{/each}
 	</main>
 </div>
@@ -36,7 +50,7 @@
 	}
 
 	.sidebar {
-		width: 500px;
+		width: 1500px;
 		background-color: grey;
 		color: white;
 		overflow-y: auto;
@@ -45,15 +59,24 @@
 
 	.main {
 		overflow-x: hidden;
-		padding: 1rem;
+		padding-left: 50px;
 	}
 
 	.title {
 		padding-bottom: 20px;
 		padding-top: 20px;
+		font-size: 30px;
+		font-weight: 700;
 	}
 
 	.link {
 		text-decoration: none;
+		color: white;
+		padding: 0px;
+		margin: 0px;
+	}
+
+	.content {
+		font-size: 18px;
 	}
 </style>
