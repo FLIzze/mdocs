@@ -1,6 +1,4 @@
 <script lang="ts">
-	import { marked } from 'marked';
-
 	export let data;
 
 	interface mdContent {
@@ -12,7 +10,7 @@
 
 	data.sections.forEach((section) => {
 		mdContent.push({
-			content: section.content,
+			content: section.content, 
 			title: section.title
 		});
 	});
@@ -35,7 +33,7 @@
 	<main class="main">
 		{#each mdContent as md}
 			<div class="title" id={md.title.trim()}>{md.title}</div>
-			<div class="content">{@html marked(md.content)}</div>
+                        <div>{md.content}</div>
 		{/each}
 	</main>
 </div>
@@ -45,52 +43,42 @@
 		* {
 			padding: 0;
 			margin: 0;
+			font-family: 'Courier New', Courier, monospace;
 		}
+	}
+
+	.title {
+		padding: 25px 0;
+		font-size: 25px;
+		font-weight: 700;
 	}
 
 	.container {
 		display: flex;
-		height: 100vh;
+		flex-direction: row;
+                height: 100vh;
 	}
 
 	.sidebar {
-		width: 500px;
-		background-color: grey;
-		color: white;
+		background-color: #f8f8f8;
+                width: 500px;
 		overflow-y: auto;
 		display: flex;
 		flex-direction: column;
-		padding: 10px;
+		padding-top: 30px;
 	}
 
 	.main {
-		overflow-x: hidden;
-                width: 100%;
-		padding-left: 50px;
-                padding-bottom: 20px;
-	}
-
-	.title {
-		padding-bottom: 20px;
-		padding-top: 20px;
-		font-size: 30px;
-		font-weight: 700;
+		width: 100%;
+		overflow-y: auto;
+		padding: 5px 30px;
 	}
 
 	.link {
 		text-decoration: none;
-		color: white;
-		padding: 3px;
-		margin: 0px;
 	}
 
 	.link:hover {
-		color: black;
-                background-color: white;
-	}
-
-	.content {
-		font-size: 18px;
-		white-space: pre-wrap;
+		color: red;
 	}
 </style>
